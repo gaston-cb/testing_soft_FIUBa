@@ -1,0 +1,3 @@
+/home/gaston/rpico_soft/build/pioasm/CMakeFiles/pioasm.dir
+/home/gaston/rpico_soft/build/pioasm/CMakeFiles/edit_cache.dir
+/home/gaston/rpico_soft/build/pioasm/CMakeFiles/rebuild_cache.dir

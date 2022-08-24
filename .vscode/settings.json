@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "gpio.h": "c",
+        "pico.h": "c",
+        "config.h": "c",
+        "platform.h": "c",
+        "error.h": "c",
+        "sio.h": "c",
+        "padsbank0.h": "c",
+        "config_autogen.h": "c",
+        "address_mapped.h": "c",
+        "type_traits": "cpp"
+    }
+}

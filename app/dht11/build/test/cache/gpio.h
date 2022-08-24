@@ -1,11 +1,13 @@
 #include "test/sio.h"
+
+
+
+
+
+
+
+
 typedef unsigned int uint ;
-
-
-
-
-
-
 
 enum gpio_function {
 
@@ -165,9 +167,7 @@ enum gpio_drive_strength gpio_get_drive_strength(uint gpio);
 
 void gpio_acknowledge_irq(uint gpio, uint32_t event_mask);
 
-void gpio_init(uint gpio);
-
-
+void gpio_init(uint gpio) ;
 
 
 

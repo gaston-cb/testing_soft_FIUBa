@@ -1,7 +1,7 @@
 ---
 build/test/mocks/mock_gpio.c:
 - TEST
-build/test/mocks/mock_sio.c:
+build/test/mocks/mock_manage_read_dht11.c:
 - TEST
 src/dht11.c:
 - TEST

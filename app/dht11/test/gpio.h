@@ -6,8 +6,7 @@
 
 #ifndef _HARDWARE_GPIO_H_
 #define _HARDWARE_GPIO_H_
-#include <stdbool.h>
-typedef unsigned int uint  ; 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -16,7 +15,8 @@ extern "C" {
 #ifndef PARAM_ASSERTIONS_ENABLED_GPIO
 #define PARAM_ASSERTIONS_ENABLED_GPIO 0
 #endif
-
+#include <stdbool.h>
+typedef unsigned int uint  ; 
 /** \file gpio.h
  *  \defgroup hardware_gpio hardware_gpio
  *
@@ -648,8 +648,7 @@ static inline void gpio_remove_raw_irq_handler(uint gpio, irq_handler_t handler)
  *
  * \param gpio GPIO number
  */
-void gpio_init(uint gpio);
-
+void gpio_init(uint gpio) ; 
 /*! \brief Resets a GPIO back to the NULL function, i.e. disables it.
  *  \ingroup hardware_gpio
  *

@@ -3,8 +3,8 @@
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
 #include "cmock.h"
-#include "mock_sio.h"
 #include "mock_gpio.h"
+#include "mock_manage_read_dht11.h"
 
 int GlobalExpectCount;
 int GlobalVerifyOrder;
@@ -13,8 +13,8 @@ char* GlobalOrderError;
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_prueba(void);
-extern void test_pin_seleccion_inicio_dht11(void);
+extern void test_seleccion_de_gpio_biblioteca_dht11(void);
+extern void test_buffer_correcto_temperatura_humedad(void);
 
 
 /*=======Mock Management=====*/
@@ -23,22 +23,19 @@ static void CMock_Init(void)
   GlobalExpectCount = 0;
   GlobalVerifyOrder = 0;
   GlobalOrderError = NULL;
-  mock_sio_Init();
   mock_gpio_Init();
+  mock_manage_read_dht11_Init();
 }
 static void CMock_Verify(void)
 {
-  mock_sio_Verify();
   mock_gpio_Verify();
+  mock_manage_read_dht11_Verify();
 }
 static void CMock_Destroy(void)
 {
-  mock_sio_Destroy();
   mock_gpio_Destroy();
+  mock_manage_read_dht11_Destroy();
 }
-
-/*=======Setup (stub)=====*/
-void setUp(void) {}
 
 /*=======Teardown (stub)=====*/
 void tearDown(void) {}
@@ -91,8 +88,8 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test_dht11_soft.c");
-  run_test(test_prueba, "test_prueba", 15);
-  run_test(test_pin_seleccion_inicio_dht11, "test_pin_seleccion_inicio_dht11", 24);
+  run_test(test_seleccion_de_gpio_biblioteca_dht11, "test_seleccion_de_gpio_biblioteca_dht11", 50);
+  run_test(test_buffer_correcto_temperatura_humedad, "test_buffer_correcto_temperatura_humedad", 60);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

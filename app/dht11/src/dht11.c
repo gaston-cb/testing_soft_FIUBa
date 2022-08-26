@@ -31,11 +31,17 @@ void get_buffer_rx(uint8_t *buffer){
     memcpy(buffer, buffer_rx,5 ) ; 
 } 
 
+
 dht11_t read_sensor_data(){ 
-    
-//    read_dht11() ; 
-    data_sensor_dht11.humedad =  22.22    ; 
-    data_sensor_dht11.temperatura =  22.22 ;
-    data_sensor_dht11.last_is_correct = true ;   
+    uint8_t checksum = buffer_rx[0] + buffer_rx[1] + buffer_rx[2] + buffer_rx[3] ; 
+    if (checksum == buffer_rx[4]){ 
+        data_sensor_dht11.humedad = (float)buffer_rx[0]  + ((float) buffer_rx[1])/100.0  ; 
+        data_sensor_dht11.temperatura = (float)buffer_rx[2] + ((float) buffer_rx[3])/100.0  ; 
+        data_sensor_dht11.last_is_correct = true  ; 
+   
+    }else{
+        data_sensor_dht11.last_is_correct = false ; 
+
+    }
     return data_sensor_dht11 ; 
 } 

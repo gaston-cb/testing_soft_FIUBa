@@ -118,17 +118,19 @@ void test_temperatura_humedad_dato_leido_sensor(void){
 
     data_sensor = read_sensor_data() ;
 
+
+
     UnityAssertEqualNumber((UNITY_INT)((temperatura)), (UNITY_INT)((data_sensor.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(106), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(107), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((humedad)), (UNITY_INT)((data_sensor.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(107), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(108), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((
 
@@ -138,8 +140,104 @@ void test_temperatura_humedad_dato_leido_sensor(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(108), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(109), UNITY_DISPLAY_STYLE_INT) ;
 
 
+
+}
+
+
+
+
+
+
+
+
+
+void test_dato_crc_incorrecto_mantener_valor(void){
+
+
+
+    float temperatura_crc_correcto = 22.22 ;
+
+    float humedad_crc_correcto = 22.22 ;
+
+
+
+
+
+    float temperatura_crc_incorrecto = 25.33 ;
+
+    float humedad_crc_incorrecto = 44.55 ;
+
+
+
+    uint8_t data_sensor_simulate[5] ;
+
+    data_sensor_simulate[0] = 22 ;
+
+    data_sensor_simulate[1] = 22 ;
+
+    data_sensor_simulate[2] = 22 ;
+
+    data_sensor_simulate[3] = 22 ;
+
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]
+
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
+
+    dht11_t data_sensor ;
+
+    read_buffer_dht11_CMockExpectAnyArgs(133) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(134, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
+
+    data_sensor = read_sensor_data() ;
+
+
+
+    data_sensor_simulate[0] = 25 ;
+
+    data_sensor_simulate[1] = 33 ;
+
+    data_sensor_simulate[2] = 44 ;
+
+    data_sensor_simulate[3] = 55 ;
+
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]) ;
+
+    read_buffer_dht11_CMockExpectAnyArgs(143) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(144, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
+
+    data_sensor = read_sensor_data() ;
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)((temperatura_crc_correcto)), (UNITY_INT)((data_sensor.temperatura)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(148), UNITY_DISPLAY_STYLE_INT) ;
+
+    UnityAssertEqualNumber((UNITY_INT)((humedad_crc_correcto)), (UNITY_INT)((data_sensor.temperatura)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(149), UNITY_DISPLAY_STYLE_INT) ;
+
+    UnityAssertEqualNumber((UNITY_INT)((
+
+   0
+
+   )), (UNITY_INT)((data_sensor.last_is_correct)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(150), UNITY_DISPLAY_STYLE_INT) ;
 
 }

@@ -103,8 +103,49 @@ void test_temperatura_humedad_dato_leido_sensor(void){
     read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
     read_dht11()   ;  ///! se comunica con la capa de hardware -- uso de mocks 
     data_sensor = read_sensor_data() ; 
+    
     TEST_ASSERT_EQUAL(temperatura, data_sensor.temperatura) ; 
     TEST_ASSERT_EQUAL(humedad, data_sensor.temperatura) ; 
     TEST_ASSERT_EQUAL(true,data_sensor.last_is_correct ) ; 
 
+}
+
+
+
+///!  * 4) Resolver si el dato es correcto en base al crc se debe cambiar el ultimo valor de temp y hum 
+void test_dato_crc_incorrecto_mantener_valor(void){
+    ///! primer valor de temperatura y humedad correcto: 
+    float temperatura_crc_correcto = 22.22 ;
+    float humedad_crc_correcto = 22.22 ;  
+    // se cambiaron los valores ya que al realizar otra medición es mas probable que cambien 
+    // los parametros y el CRC sea invalido.
+    float temperatura_crc_incorrecto = 25.33 ;     
+    float humedad_crc_incorrecto = 44.55 ;  
+
+    uint8_t data_sensor_simulate[5] ; /// temperatura: 22.22°c , humedad : 22.22 %(VER DATASHEET) 
+    data_sensor_simulate[0] = 22 ; 
+    data_sensor_simulate[1] = 22 ; 
+    data_sensor_simulate[2] = 22 ; 
+    data_sensor_simulate[3] = 22 ; 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
+    dht11_t data_sensor ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware -- uso de mocks 
+    data_sensor = read_sensor_data() ;  /// identico al test anterior 
+    
+    data_sensor_simulate[0] = 25 ; 
+    data_sensor_simulate[1] = 33 ; 
+    data_sensor_simulate[2] = 44 ; 
+    data_sensor_simulate[3] = 55 ; 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]) ; ///!crc incorrecto  
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware -- uso de mocks 
+    data_sensor = read_sensor_data() ;  /// identico al test anterior 
+   
+    TEST_ASSERT_EQUAL(temperatura_crc_correcto, data_sensor.temperatura) ; 
+    TEST_ASSERT_EQUAL(humedad_crc_correcto, data_sensor.temperatura) ; 
+    TEST_ASSERT_EQUAL(false,data_sensor.last_is_correct ) ; 
 }

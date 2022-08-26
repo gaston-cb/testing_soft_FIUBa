@@ -18,3 +18,4 @@ void get_buffer_rx(uint8_t *buffer) ;
  */
 dht11_t read_sensor_data() ; 
 float get_temperature() ; 
+float get_humidity() ; 

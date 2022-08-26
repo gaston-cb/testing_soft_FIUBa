@@ -52,3 +52,9 @@ float get_temperature(){
     return  data_sensor_dht11.temperatura  ; 
   
 }
+
+float get_humidity(){ 
+    read_sensor_data() ; 
+    return  data_sensor_dht11.humedad  ; 
+  
+}

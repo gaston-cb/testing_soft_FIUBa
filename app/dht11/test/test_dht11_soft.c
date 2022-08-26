@@ -21,7 +21,7 @@
 */ 
 
 /* ****************Lista de test *************************************
- * 1) inicializacion correcta del puerto seleccionado en la biblioteca 
+ * 1) inicializacion correcta del puerto seleccionado en la biblioteca.
  * 2) Conectarse con el prototipo de función provisto de la biblioteca de comunicación de llenado de buffer
  *      void read_buffer_dht11(port, uint8_t buffer* )(en desarrollo) 
  *     y leer los bytes de devolución de esta biblioteca de hardware 
@@ -188,6 +188,14 @@ void test_dato_crc_incorrecto_mantener_valor(void){
     TEST_ASSERT_EQUAL(false,data_sensor.last_is_correct ) ; 
 }
 
+/// * 6) Transformar temperatura a kelvin 
+void test_transformar_temperatura_a_kelvin(void){ 
+
+
+
+}
+
+
 /// * 7) Leer temperatura 
 void test_leer_temperatura_dht11(void){
     float temperature_sensor_data = 44.55 ; 
@@ -197,7 +205,7 @@ void test_leer_temperatura_dht11(void){
     data_sensor_simulate[1] = 33 ; 
     data_sensor_simulate[2] = 44 ; 
     data_sensor_simulate[3] = 55 ; 
-  data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
                                 + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
      read_buffer_dht11_ExpectAnyArgs() ; 
     read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
@@ -208,4 +216,63 @@ void test_leer_temperatura_dht11(void){
 }
 
 
+// * 8) Leer humedad  
+void test_leer_humedad_dht11(void){
+    float humedad_read_sensor = 25.33 ; 
+    float humedad_read ; 
+    uint8_t data_sensor_simulate[5] ; 
+    data_sensor_simulate[0] = 25 ; 
+    data_sensor_simulate[1] = 33 ; 
+    data_sensor_simulate[2] = 44 ; 
+    data_sensor_simulate[3] = 55 ; 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware  
+    humedad_read = get_humidity() ; 
+    TEST_ASSERT_EQUAL(humedad_read, humedad_read_sensor) ; 
 
+}
+
+// * 9) Reconocer si la ultima lectura fue correcta o es el último valor leido correctamente. 
+void test_ultima_lectura_correcta_incorrecta(void){ 
+    float temperatura_1 = 33.22 ; 
+    float temperatura_2 = 22.67 ; 
+    float humedad_1 = 15.21 ; 
+    float humedad_2 = 15.45 ; 
+    dht11_t medida_1; 
+    dht11_t medida_2; 
+    dht11_t medida_3; 
+
+    uint8_t data_sensor_1[5] = { 
+        15,21, 33, 22 , (15+21+33+22)
+    } ; 
+    uint8_t data_sensor_2[5] = { 
+        15,45,22,67 ,(15+45+22+67)
+    } ; 
+    uint8_t data_sensor_3[5] = { 
+        15,45,22,67 ,(15)  
+    } ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_1, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware  
+    medida_1 = read_sensor_data() ;
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_2, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware  
+    medida_2 = read_sensor_data() ;
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_3, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware  
+    medida_3 = read_sensor_data() ;
+
+    TEST_ASSERT_EQUAL(true,medida_1.last_is_correct) ; 
+    TEST_ASSERT_EQUAL(true,medida_2.last_is_correct) ; 
+    TEST_ASSERT_EQUAL(false,medida_3.last_is_correct) ; 
+    TEST_ASSERT_EQUAL(humedad_2,medida_3.humedad) ; 
+    TEST_ASSERT_EQUAL(temperatura_2,medida_3.temperatura) ; 
+
+
+
+}

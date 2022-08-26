@@ -118,19 +118,17 @@ void test_temperatura_humedad_dato_leido_sensor(void){
 
     data_sensor = read_sensor_data() ;
 
-
-
     UnityAssertEqualNumber((UNITY_INT)((temperatura)), (UNITY_INT)((data_sensor.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(107), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(106), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((humedad)), (UNITY_INT)((data_sensor.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(108), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(107), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((
 
@@ -140,11 +138,105 @@ void test_temperatura_humedad_dato_leido_sensor(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(109), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(108), UNITY_DISPLAY_STYLE_INT) ;
 
 
 
 }
+
+
+
+
+
+
+
+void test_cambiar_lectura_de_temperatura_humedad(void) {
+
+    float primera_temperatura = 22.22 ;
+
+    float primera_humedad = 22.22 ;
+
+    float segunda_temperatura = 44.55 ;
+
+    float segunda_humedad = 25.33 ;
+
+
+
+    uint8_t data_sensor_simulate[5] ;
+
+    data_sensor_simulate[0] = 22 ;
+
+    data_sensor_simulate[1] = 22 ;
+
+    data_sensor_simulate[2] = 22 ;
+
+    data_sensor_simulate[3] = 22 ;
+
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]
+
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
+
+    dht11_t data_sensor ;
+
+    read_buffer_dht11_CMockExpectAnyArgs(128) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(129, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
+
+    data_sensor = read_sensor_data() ;
+
+
+
+    data_sensor_simulate[0] = 25 ;
+
+    data_sensor_simulate[1] = 33 ;
+
+    data_sensor_simulate[2] = 44 ;
+
+    data_sensor_simulate[3] = 55 ;
+
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]
+
+        + data_sensor_simulate[2] + data_sensor_simulate[3] ) ;
+
+    read_buffer_dht11_CMockExpectAnyArgs(139) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(140, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
+
+    data_sensor = read_sensor_data() ;
+
+
+
+    UnityAssertEqualNumber((UNITY_INT)((segunda_temperatura)), (UNITY_INT)((data_sensor.temperatura)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(144), UNITY_DISPLAY_STYLE_INT) ;
+
+    UnityAssertEqualNumber((UNITY_INT)((segunda_humedad)), (UNITY_INT)((data_sensor.humedad)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(145), UNITY_DISPLAY_STYLE_INT) ;
+
+    UnityAssertEqualNumber((UNITY_INT)((
+
+   1
+
+   )), (UNITY_INT)((data_sensor.last_is_correct)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(146), UNITY_DISPLAY_STYLE_INT) ;
+
+
+
+}
+
+
 
 
 
@@ -188,9 +280,9 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
     dht11_t data_sensor ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(133) ;
+    read_buffer_dht11_CMockExpectAnyArgs(171) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(134, data_sensor_simulate, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(172, data_sensor_simulate, 5) ;
 
     read_dht11() ;
 
@@ -208,9 +300,9 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
     data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]) ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(143) ;
+    read_buffer_dht11_CMockExpectAnyArgs(181) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(144, data_sensor_simulate, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(182, data_sensor_simulate, 5) ;
 
     read_dht11() ;
 
@@ -222,13 +314,13 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(148), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(186), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((humedad_crc_correcto)), (UNITY_INT)((data_sensor.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(149), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(187), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((
 
@@ -238,6 +330,6 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(150), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(188), UNITY_DISPLAY_STYLE_INT) ;
 
 }

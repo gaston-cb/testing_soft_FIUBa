@@ -13,6 +13,8 @@
 
 uint8_t buffer_rx[5] ; 
 TESTABLE_STATIC uint8_t pin_number_dht_11 ; 
+static dht11_t data_sensor_dht11 ; 
+
 
 void init_dht11(uint8_t number_port) { 
     pin_number_dht_11 = number_port ; 
@@ -27,4 +29,13 @@ void read_dht11(){
 
 void get_buffer_rx(uint8_t *buffer){ 
     memcpy(buffer, buffer_rx,5 ) ; 
+} 
+
+dht11_t read_sensor_data(){ 
+    
+//    read_dht11() ; 
+    data_sensor_dht11.humedad =  22.22    ; 
+    data_sensor_dht11.temperatura =  22.22 ;
+    data_sensor_dht11.last_is_correct = true ;   
+    return data_sensor_dht11 ; 
 } 

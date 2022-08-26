@@ -1,5 +1,6 @@
 #include "unity.h" 
 #include <stdint.h>
+#include <stdbool.h>
 //#include "mock_sio.h"
 
 #include "mock_gpio.h"
@@ -23,9 +24,10 @@
  * 1) inicializacion correcta del puerto seleccionado en la biblioteca 
  * 2) Conectarse con el prototipo de función provisto de la biblioteca de comunicación de llenado de buffer
  *      void read_buffer_dht11(port, uint8_t buffer* )(en desarrollo) 
- * 3) Función de devolución de bytes leidos por el hardware 
- * 4) Resolver si el dato es correcta en base al crc debe cambiar el ultimo valor de temp y hum 
- * 5) Resolver el dato si el crc falla, poniendo los flags correspondientes  
+ *     y leer los bytes de devolución de esta biblioteca de hardware 
+ * 3) Resolver el valor de temperatura y humedad con el CRC correcto a partir de leer la capa de hardware 
+ * 4) Resolver si el dato es correcto en base al crc se debe cambiar el ultimo valor de temp y hum 
+ * 5) Resolver el dato si el crc falla, mantener  la ultima lectura correcta
  * 6) Transformar temperatura a kelvin 
  * 7) Leer temperatura 
  * 8) Leer humedad  
@@ -35,6 +37,20 @@
 #define GPIO_PORT_PIN_TEST_1 8
 
 //VARIABLES PARA TEST 2 
+#define BYTE_0_TEST_2 22
+#define BYTE_1_TEST_2  2
+#define BYTE_2_TEST_2  3
+#define BYTE_3_TEST_2  4 
+#define BYTE_4_TEST_2  5 
+/// VARIABLES PARA TEST 3 
+#define BYTE_0_TEST_3 22
+#define BYTE_1_TEST_3  0
+#define BYTE_2_TEST_3  40
+#define BYTE_3_TEST_3  4 
+#define BYTE_4_TEST_3  (BYTE_0_TEST_3 + BYTE_1_TEST_3 + BYTE_2_TEST_3, BYTE_3_TEST_3) ///checksum
+/// 
+
+
 //#define 
 extern uint8_t pin_number_dht_11;
 
@@ -47,27 +63,48 @@ void test_seleccion_de_gpio_biblioteca_dht11(void) {
     init_dht11(8) ; 
     TEST_ASSERT_EQUAL(8,GPIO_PORT_PIN_TEST_1) ; 
 }
-//2) Conectarse con el prototipo de función provisto de la biblioteca de comunicación de llenado de buffer
-/* mocks encontrados en gpio 
-//read_buffer_dht11_ReturnArrayThruPtr_buffer(5,data_sensor_simulate);   
-    //read_buffer_dht11_IgnoreArg_gpio() ; 
-    //read_buffer_dht11_Expect(8, data_sensor_simulate) ; 
-    //read_buffer_dht11_ReturnArrayThruPtr_buffer(data_sensor_simulate, 5) ; 
-    //read_buffer_dht11_ExpectWithArray(8,data_sensor_simulate,5 ) ;  
-    //read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate,5) ; 
-*/
 
-
-
-void test_data_sensor_rx_buffer(void) { 
-    uint8_t data_sensor_simulate[5] ={0x16,2,3,4,5} ; 
-    uint8_t data_get_sensor_dht11[5] ; 
- 
+/*
+ * 2) Conectarse con el prototipo de función provisto de la biblioteca de comunicación de llenado de buffer
+ *      void read_buffer_dht11(port, uint8_t buffer* )(en desarrollo) 
+ *     y leer los bytes de devolución de esta biblioteca de hardware 
+ */
+ void test_data_sensor_rx_buffer(void) { 
+    uint8_t data_get_sensor_dht11[5] ; ///respuesta del sensor copiada desde el mock de return 
+    uint8_t data_sensor_simulate[5] ={ 
+        BYTE_0_TEST_2, BYTE_1_TEST_2,
+        BYTE_2_TEST_2, BYTE_3_TEST_2,
+        BYTE_4_TEST_2} ; 
     gpio_init_Ignore() ; 
     read_buffer_dht11_ExpectAnyArgs() ; 
     read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
     init_dht11(8) ;     
     read_dht11()   ; 
-    get_buffer_rx(data_get_sensor_dht11) ; 
-     TEST_ASSERT_EQUAL_INT8_ARRAY(data_sensor_simulate,data_get_sensor_dht11,5 ) ;
+    get_buffer_rx(data_get_sensor_dht11) ;
+    TEST_ASSERT_EQUAL_INT8_ARRAY(data_sensor_simulate,data_get_sensor_dht11,5 ) ;
 } 
+
+
+// * 3) Resolver el valor de temperatura y humedad con el CRC correcto a partir del vector de bytes 
+//      recibido por la capa de abstracción 
+void test_temperatura_humedad_dato_leido_sensor(void){ 
+    float temperatura = 22.22 ; 
+    float humedad = 22.22 ;  
+    uint8_t data_sensor_simulate[5] ; /// temperatura: 22.22°c , humedad : 22.22 %(VER DATASHEET) 
+    data_sensor_simulate[0] = 22 ; 
+    data_sensor_simulate[1] = 22 ; 
+    data_sensor_simulate[2] = 22 ; 
+    data_sensor_simulate[3] = 22 ; 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
+    
+    dht11_t data_sensor ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware -- uso de mocks 
+    data_sensor = read_sensor_data() ; 
+    TEST_ASSERT_EQUAL(temperatura, data_sensor.temperatura) ; 
+    TEST_ASSERT_EQUAL(humedad, data_sensor.temperatura) ; 
+    TEST_ASSERT_EQUAL(true,data_sensor.last_is_correct ) ; 
+
+}

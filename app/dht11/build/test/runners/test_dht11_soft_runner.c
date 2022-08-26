@@ -15,6 +15,7 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_seleccion_de_gpio_biblioteca_dht11(void);
 extern void test_data_sensor_rx_buffer(void);
+extern void test_temperatura_humedad_dato_leido_sensor(void);
 
 
 /*=======Mock Management=====*/
@@ -91,8 +92,9 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test_dht11_soft.c");
-  run_test(test_seleccion_de_gpio_biblioteca_dht11, "test_seleccion_de_gpio_biblioteca_dht11", 41);
-  run_test(test_data_sensor_rx_buffer, "test_data_sensor_rx_buffer", 62);
+  run_test(test_seleccion_de_gpio_biblioteca_dht11, "test_seleccion_de_gpio_biblioteca_dht11", 57);
+  run_test(test_data_sensor_rx_buffer, "test_data_sensor_rx_buffer", 72);
+  run_test(test_temperatura_humedad_dato_leido_sensor, "test_temperatura_humedad_dato_leido_sensor", 90);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

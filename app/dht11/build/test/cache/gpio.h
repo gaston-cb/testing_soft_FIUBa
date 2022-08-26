@@ -345,13 +345,13 @@ static inline void gpio_set_dir(uint gpio,
 
     uint32_t mask = 1ul << gpio;
 
-    if (out)
 
-        gpio_set_dir_out_masked(mask);
 
-    else
 
-        gpio_set_dir_in_masked(mask);
+
+
+
+
 
 }
 

@@ -100,6 +100,7 @@
     uint32: UINT32
     int8: INT8
     bool: UINT8
+    uint: UINT32
   :mock_path: build/test/mocks
   :verbosity: 3
   :unity_helper: false

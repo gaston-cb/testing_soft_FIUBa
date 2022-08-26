@@ -467,12 +467,12 @@ void gpio_set_inover(uint gpio, uint value)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_inover,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_value)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_inover,CMockString_value);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_value), (void*)(&value), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_value, value, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_set_inover_CallbackFunctionPointer != NULL)
@@ -485,11 +485,9 @@ void gpio_set_inover(uint gpio, uint value)
 void CMockExpectParameters_gpio_set_inover(CMOCK_gpio_set_inover_CALL_INSTANCE* cmock_call_instance, uint gpio, uint value);
 void CMockExpectParameters_gpio_set_inover(CMOCK_gpio_set_inover_CALL_INSTANCE* cmock_call_instance, uint gpio, uint value)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
-  memcpy((void*)(&cmock_call_instance->Expected_value), (void*)(&value),
-         sizeof(uint[sizeof(value) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_value = value;
   cmock_call_instance->IgnoreArg_value = 0;
 }
 
@@ -589,12 +587,12 @@ void gpio_set_oeover(uint gpio, uint value)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_oeover,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_value)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_oeover,CMockString_value);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_value), (void*)(&value), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_value, value, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_set_oeover_CallbackFunctionPointer != NULL)
@@ -607,11 +605,9 @@ void gpio_set_oeover(uint gpio, uint value)
 void CMockExpectParameters_gpio_set_oeover(CMOCK_gpio_set_oeover_CALL_INSTANCE* cmock_call_instance, uint gpio, uint value);
 void CMockExpectParameters_gpio_set_oeover(CMOCK_gpio_set_oeover_CALL_INSTANCE* cmock_call_instance, uint gpio, uint value)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
-  memcpy((void*)(&cmock_call_instance->Expected_value), (void*)(&value),
-         sizeof(uint[sizeof(value) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_value = value;
   cmock_call_instance->IgnoreArg_value = 0;
 }
 
@@ -711,7 +707,7 @@ void gpio_set_input_enabled(uint gpio, _Bool enabled)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_input_enabled,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_enabled)
   {
@@ -729,8 +725,7 @@ void gpio_set_input_enabled(uint gpio, _Bool enabled)
 void CMockExpectParameters_gpio_set_input_enabled(CMOCK_gpio_set_input_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio, _Bool enabled);
 void CMockExpectParameters_gpio_set_input_enabled(CMOCK_gpio_set_input_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio, _Bool enabled)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
   memcpy((void*)(&cmock_call_instance->Expected_enabled), (void*)(&enabled),
          sizeof(_Bool[sizeof(enabled) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
@@ -833,7 +828,7 @@ void gpio_set_input_hysteresis_enabled(uint gpio, _Bool enabled)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_input_hysteresis_enabled,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_enabled)
   {
@@ -851,8 +846,7 @@ void gpio_set_input_hysteresis_enabled(uint gpio, _Bool enabled)
 void CMockExpectParameters_gpio_set_input_hysteresis_enabled(CMOCK_gpio_set_input_hysteresis_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio, _Bool enabled);
 void CMockExpectParameters_gpio_set_input_hysteresis_enabled(CMOCK_gpio_set_input_hysteresis_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio, _Bool enabled)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
   memcpy((void*)(&cmock_call_instance->Expected_enabled), (void*)(&enabled),
          sizeof(_Bool[sizeof(enabled) == sizeof(_Bool) ? 1 : -1])); /* add _Bool to :treat_as_array if this causes an error */
@@ -959,7 +953,7 @@ _Bool gpio_is_input_hysteresis_enabled(uint gpio)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_is_input_hysteresis_enabled,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_is_input_hysteresis_enabled_CallbackFunctionPointer != NULL)
@@ -973,8 +967,7 @@ _Bool gpio_is_input_hysteresis_enabled(uint gpio)
 void CMockExpectParameters_gpio_is_input_hysteresis_enabled(CMOCK_gpio_is_input_hysteresis_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio);
 void CMockExpectParameters_gpio_is_input_hysteresis_enabled(CMOCK_gpio_is_input_hysteresis_enabled_CALL_INSTANCE* cmock_call_instance, uint gpio)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
 }
 
@@ -1081,7 +1074,7 @@ void gpio_set_slew_rate(uint gpio, enum gpio_slew_rate slew)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_slew_rate,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_slew)
   {
@@ -1099,8 +1092,7 @@ void gpio_set_slew_rate(uint gpio, enum gpio_slew_rate slew)
 void CMockExpectParameters_gpio_set_slew_rate(CMOCK_gpio_set_slew_rate_CALL_INSTANCE* cmock_call_instance, uint gpio, enum gpio_slew_rate slew);
 void CMockExpectParameters_gpio_set_slew_rate(CMOCK_gpio_set_slew_rate_CALL_INSTANCE* cmock_call_instance, uint gpio, enum gpio_slew_rate slew)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
   memcpy((void*)(&cmock_call_instance->Expected_slew), (void*)(&slew),
          sizeof(enum gpio_slew_rate[sizeof(slew) == sizeof(enum gpio_slew_rate) ? 1 : -1])); /* add enum gpio_slew_rate to :treat_as_array if this causes an error */
@@ -1207,7 +1199,7 @@ enum gpio_slew_rate gpio_get_slew_rate(uint gpio)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_get_slew_rate,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_get_slew_rate_CallbackFunctionPointer != NULL)
@@ -1221,8 +1213,7 @@ enum gpio_slew_rate gpio_get_slew_rate(uint gpio)
 void CMockExpectParameters_gpio_get_slew_rate(CMOCK_gpio_get_slew_rate_CALL_INSTANCE* cmock_call_instance, uint gpio);
 void CMockExpectParameters_gpio_get_slew_rate(CMOCK_gpio_get_slew_rate_CALL_INSTANCE* cmock_call_instance, uint gpio)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
 }
 
@@ -1329,7 +1320,7 @@ void gpio_set_drive_strength(uint gpio, enum gpio_drive_strength drive)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_set_drive_strength,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_drive)
   {
@@ -1347,8 +1338,7 @@ void gpio_set_drive_strength(uint gpio, enum gpio_drive_strength drive)
 void CMockExpectParameters_gpio_set_drive_strength(CMOCK_gpio_set_drive_strength_CALL_INSTANCE* cmock_call_instance, uint gpio, enum gpio_drive_strength drive);
 void CMockExpectParameters_gpio_set_drive_strength(CMOCK_gpio_set_drive_strength_CALL_INSTANCE* cmock_call_instance, uint gpio, enum gpio_drive_strength drive)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
   memcpy((void*)(&cmock_call_instance->Expected_drive), (void*)(&drive),
          sizeof(enum gpio_drive_strength[sizeof(drive) == sizeof(enum gpio_drive_strength) ? 1 : -1])); /* add enum gpio_drive_strength to :treat_as_array if this causes an error */
@@ -1455,7 +1445,7 @@ enum gpio_drive_strength gpio_get_drive_strength(uint gpio)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_get_drive_strength,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_get_drive_strength_CallbackFunctionPointer != NULL)
@@ -1469,8 +1459,7 @@ enum gpio_drive_strength gpio_get_drive_strength(uint gpio)
 void CMockExpectParameters_gpio_get_drive_strength(CMOCK_gpio_get_drive_strength_CALL_INSTANCE* cmock_call_instance, uint gpio);
 void CMockExpectParameters_gpio_get_drive_strength(CMOCK_gpio_get_drive_strength_CALL_INSTANCE* cmock_call_instance, uint gpio)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
 }
 
@@ -1577,7 +1566,7 @@ void gpio_acknowledge_irq(uint gpio, uint32_t event_mask)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_acknowledge_irq,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   if (!cmock_call_instance->IgnoreArg_event_mask)
   {
@@ -1595,8 +1584,7 @@ void gpio_acknowledge_irq(uint gpio, uint32_t event_mask)
 void CMockExpectParameters_gpio_acknowledge_irq(CMOCK_gpio_acknowledge_irq_CALL_INSTANCE* cmock_call_instance, uint gpio, uint32_t event_mask);
 void CMockExpectParameters_gpio_acknowledge_irq(CMOCK_gpio_acknowledge_irq_CALL_INSTANCE* cmock_call_instance, uint gpio, uint32_t event_mask)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
   cmock_call_instance->Expected_event_mask = event_mask;
   cmock_call_instance->IgnoreArg_event_mask = 0;
@@ -1698,7 +1686,7 @@ void gpio_init(uint gpio)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_init,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_init_CallbackFunctionPointer != NULL)
@@ -1711,8 +1699,7 @@ void gpio_init(uint gpio)
 void CMockExpectParameters_gpio_init(CMOCK_gpio_init_CALL_INSTANCE* cmock_call_instance, uint gpio);
 void CMockExpectParameters_gpio_init(CMOCK_gpio_init_CALL_INSTANCE* cmock_call_instance, uint gpio)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
 }
 
@@ -1805,7 +1792,7 @@ void gpio_deinit(uint gpio)
   if (!cmock_call_instance->IgnoreArg_gpio)
   {
     UNITY_SET_DETAILS(CMockString_gpio_deinit,CMockString_gpio);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio, gpio, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_deinit_CallbackFunctionPointer != NULL)
@@ -1818,8 +1805,7 @@ void gpio_deinit(uint gpio)
 void CMockExpectParameters_gpio_deinit(CMOCK_gpio_deinit_CALL_INSTANCE* cmock_call_instance, uint gpio);
 void CMockExpectParameters_gpio_deinit(CMOCK_gpio_deinit_CALL_INSTANCE* cmock_call_instance, uint gpio)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio), (void*)(&gpio),
-         sizeof(uint[sizeof(gpio) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio = gpio;
   cmock_call_instance->IgnoreArg_gpio = 0;
 }
 
@@ -1912,7 +1898,7 @@ void gpio_init_mask(uint gpio_mask)
   if (!cmock_call_instance->IgnoreArg_gpio_mask)
   {
     UNITY_SET_DETAILS(CMockString_gpio_init_mask,CMockString_gpio_mask);
-    UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_mask), (void*)(&gpio_mask), sizeof(uint), cmock_line, CMockStringMismatch);
+    UNITY_TEST_ASSERT_EQUAL_UINT32(cmock_call_instance->Expected_gpio_mask, gpio_mask, cmock_line, CMockStringMismatch);
   }
   }
   if (Mock.gpio_init_mask_CallbackFunctionPointer != NULL)
@@ -1925,8 +1911,7 @@ void gpio_init_mask(uint gpio_mask)
 void CMockExpectParameters_gpio_init_mask(CMOCK_gpio_init_mask_CALL_INSTANCE* cmock_call_instance, uint gpio_mask);
 void CMockExpectParameters_gpio_init_mask(CMOCK_gpio_init_mask_CALL_INSTANCE* cmock_call_instance, uint gpio_mask)
 {
-  memcpy((void*)(&cmock_call_instance->Expected_gpio_mask), (void*)(&gpio_mask),
-         sizeof(uint[sizeof(gpio_mask) == sizeof(uint) ? 1 : -1])); /* add uint to :treat_as_array if this causes an error */
+  cmock_call_instance->Expected_gpio_mask = gpio_mask;
   cmock_call_instance->IgnoreArg_gpio_mask = 0;
 }
 

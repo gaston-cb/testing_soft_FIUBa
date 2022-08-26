@@ -36,33 +36,38 @@
 
 //VARIABLES PARA TEST 2 
 //#define 
-
-
-
-
 extern uint8_t pin_number_dht_11;
 
-void setUp(void){ 
-
-}
-
-
 void test_seleccion_de_gpio_biblioteca_dht11(void) {
-    gpio_init_Expect(8) ; 
+    //gpio_init_Expect(8) ; 
+    //gpio_set_dir_Ignore() ; 
     gpio_init_Ignore() ; 
+    //gpio_set_inover_ExpectAnyArgs() ; 
+
     init_dht11(8) ; 
     TEST_ASSERT_EQUAL(8,GPIO_PORT_PIN_TEST_1) ; 
-
 }
 //2) Conectarse con el prototipo de función provisto de la biblioteca de comunicación de llenado de buffer
-uint8_t data_sensor_simulate[5] ={0x16,2,3,4,5} ; 
+/* mocks encontrados en gpio 
+//read_buffer_dht11_ReturnArrayThruPtr_buffer(5,data_sensor_simulate);   
+    //read_buffer_dht11_IgnoreArg_gpio() ; 
+    //read_buffer_dht11_Expect(8, data_sensor_simulate) ; 
+    //read_buffer_dht11_ReturnArrayThruPtr_buffer(data_sensor_simulate, 5) ; 
+    //read_buffer_dht11_ExpectWithArray(8,data_sensor_simulate,5 ) ;  
+    //read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate,5) ; 
+*/
 
-void test_buffer_correcto_temperatura_humedad(void){
- /*   uint8_t data_get_sensor_dht11[5] ; 
-    //read_buffer_dht11_ExpectWithArray(8,&data_sensor_simulate, 5);
-    read_buffer_dht11_ExpectWithArray(8, data_sensor_simulate,5) ; 
+
+
+void test_data_sensor_rx_buffer(void) { 
+    uint8_t data_sensor_simulate[5] ={0x16,2,3,4,5} ; 
+    uint8_t data_get_sensor_dht11[5] ; 
+ 
+    gpio_init_Ignore() ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    init_dht11(8) ;     
     read_dht11()   ; 
     get_buffer_rx(data_get_sensor_dht11) ; 
-    TEST_ASSERT_EQUAL(data_get_sensor_dht11,data_sensor_simulate ) ; */ 
-
-}
+     TEST_ASSERT_EQUAL_INT8_ARRAY(data_sensor_simulate,data_get_sensor_dht11,5 ) ;
+} 

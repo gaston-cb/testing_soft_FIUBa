@@ -837,10 +837,10 @@ static inline void gpio_set_dir_all_bits(uint32_t values) {
  */
 static inline void gpio_set_dir(uint gpio, bool out) {
     uint32_t mask = 1ul << gpio;
-    if (out)
+/*    if (out)
         gpio_set_dir_out_masked(mask);
     else
-        gpio_set_dir_in_masked(mask);
+        gpio_set_dir_in_masked(mask);  */ 
 }
 
 /*! \brief Check if a specific GPIO direction is OUT

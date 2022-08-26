@@ -333,3 +333,45 @@ void test_dato_crc_incorrecto_mantener_valor(void){
    ), (UNITY_UINT)(188), UNITY_DISPLAY_STYLE_INT) ;
 
 }
+
+
+
+
+
+void test_leer_temperatura_dht11(void){
+
+    float temperature_sensor_data = 44.55 ;
+
+    float temperature_read ;
+
+    uint8_t data_sensor_simulate[5] ;
+
+    data_sensor_simulate[0] = 25 ;
+
+    data_sensor_simulate[1] = 33 ;
+
+    data_sensor_simulate[2] = 44 ;
+
+    data_sensor_simulate[3] = 55 ;
+
+  data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]
+
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
+
+     read_buffer_dht11_CMockExpectAnyArgs(202) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(203, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
+
+    temperature_read = get_temperature() ;
+
+    UnityAssertEqualNumber((UNITY_INT)((temperature_read)), (UNITY_INT)((temperature_sensor_data)), (
+
+   ((void *)0)
+
+   ), (UNITY_UINT)(206), UNITY_DISPLAY_STYLE_INT) ;
+
+
+
+}

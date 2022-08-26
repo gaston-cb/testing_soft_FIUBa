@@ -18,6 +18,7 @@ extern void test_data_sensor_rx_buffer(void);
 extern void test_temperatura_humedad_dato_leido_sensor(void);
 extern void test_cambiar_lectura_de_temperatura_humedad(void);
 extern void test_dato_crc_incorrecto_mantener_valor(void);
+extern void test_leer_temperatura_dht11(void);
 
 
 /*=======Mock Management=====*/
@@ -99,6 +100,7 @@ int main(void)
   run_test(test_temperatura_humedad_dato_leido_sensor, "test_temperatura_humedad_dato_leido_sensor", 90);
   run_test(test_cambiar_lectura_de_temperatura_humedad, "test_cambiar_lectura_de_temperatura_humedad", 114);
   run_test(test_dato_crc_incorrecto_mantener_valor, "test_dato_crc_incorrecto_mantener_valor", 154);
+  run_test(test_leer_temperatura_dht11, "test_leer_temperatura_dht11", 192);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

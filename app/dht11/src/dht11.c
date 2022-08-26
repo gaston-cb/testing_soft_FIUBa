@@ -45,3 +45,10 @@ dht11_t read_sensor_data(){
     }
     return data_sensor_dht11 ; 
 } 
+
+
+float get_temperature(){ 
+    read_sensor_data() ; 
+    return  data_sensor_dht11.temperatura  ; 
+  
+}

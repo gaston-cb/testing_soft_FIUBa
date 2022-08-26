@@ -188,4 +188,24 @@ void test_dato_crc_incorrecto_mantener_valor(void){
     TEST_ASSERT_EQUAL(false,data_sensor.last_is_correct ) ; 
 }
 
-/// 5 
+/// * 7) Leer temperatura 
+void test_leer_temperatura_dht11(void){
+    float temperature_sensor_data = 44.55 ; 
+    float temperature_read ; 
+    uint8_t data_sensor_simulate[5] ; 
+    data_sensor_simulate[0] = 25 ; 
+    data_sensor_simulate[1] = 33 ; 
+    data_sensor_simulate[2] = 44 ; 
+    data_sensor_simulate[3] = 55 ; 
+  data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
+     read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware  
+    temperature_read = get_temperature() ; 
+    TEST_ASSERT_EQUAL(temperature_read, temperature_sensor_data) ; 
+
+}
+
+
+

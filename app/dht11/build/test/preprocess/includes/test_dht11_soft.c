@@ -3,3 +3,4 @@
 - build/test/mocks/mock_gpio.h
 - build/test/mocks/mock_manage_read_dht11.h
 - inc/dht11.h
+- test/config_test_dht11.h

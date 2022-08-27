@@ -340,11 +340,45 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
 void test_transformar_temperatura_a_kelvin(void){
 
+    float temperatura = 22.22 ;
+
+    float temp_kelvin = temperatura + 273.15 ;
+
+    float temp_kelvin_dht_transform ;
+
+    float humedad = 22.22 ;
+
+    uint8_t data_sensor_simulate[5] ;
+
+    data_sensor_simulate[0] = 22 ;
+
+    data_sensor_simulate[1] = 22 ;
+
+    data_sensor_simulate[2] = 22 ;
+
+    data_sensor_simulate[3] = 22 ;
+
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1]
+
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
+
+    dht11_t data_sensor ;
+
+    read_buffer_dht11_CMockExpectAnyArgs(205) ;
+
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(206, data_sensor_simulate, 5) ;
+
+    read_dht11() ;
 
 
 
+    temp_kelvin_dht_transform = get_temperature_kelvin() ;
 
+    UnityAssertEqualNumber((UNITY_INT)((temp_kelvin)), (UNITY_INT)((temp_kelvin_dht_transform)), (
 
+   ((void *)0)
+
+   ), (UNITY_UINT)(210), UNITY_DISPLAY_STYLE_INT) ;
 
 }
 
@@ -374,9 +408,9 @@ void test_leer_temperatura_dht11(void){
 
                                 + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
 
-     read_buffer_dht11_CMockExpectAnyArgs(210) ;
+     read_buffer_dht11_CMockExpectAnyArgs(225) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(211, data_sensor_simulate, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(226, data_sensor_simulate, 5) ;
 
     read_dht11() ;
 
@@ -386,7 +420,7 @@ void test_leer_temperatura_dht11(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(214), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(229), UNITY_DISPLAY_STYLE_INT) ;
 
 
 
@@ -418,9 +452,9 @@ void test_leer_humedad_dht11(void){
 
                                 + data_sensor_simulate[2] + data_sensor_simulate[3]) ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(230) ;
+    read_buffer_dht11_CMockExpectAnyArgs(245) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(231, data_sensor_simulate, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(246, data_sensor_simulate, 5) ;
 
     read_dht11() ;
 
@@ -430,7 +464,7 @@ void test_leer_humedad_dht11(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(234), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(249), UNITY_DISPLAY_STYLE_INT) ;
 
 
 
@@ -476,25 +510,25 @@ void test_ultima_lectura_correcta_incorrecta(void){
 
     } ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(257) ;
+    read_buffer_dht11_CMockExpectAnyArgs(272) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(258, data_sensor_1, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(273, data_sensor_1, 5) ;
 
     read_dht11() ;
 
     medida_1 = read_sensor_data() ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(261) ;
+    read_buffer_dht11_CMockExpectAnyArgs(276) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(262, data_sensor_2, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(277, data_sensor_2, 5) ;
 
     read_dht11() ;
 
     medida_2 = read_sensor_data() ;
 
-    read_buffer_dht11_CMockExpectAnyArgs(265) ;
+    read_buffer_dht11_CMockExpectAnyArgs(280) ;
 
-    read_buffer_dht11_CMockReturnMemThruPtr_buffer(266, data_sensor_3, 5) ;
+    read_buffer_dht11_CMockReturnMemThruPtr_buffer(281, data_sensor_3, 5) ;
 
     read_dht11() ;
 
@@ -510,7 +544,7 @@ void test_ultima_lectura_correcta_incorrecta(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(270), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(285), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((
 
@@ -520,7 +554,7 @@ void test_ultima_lectura_correcta_incorrecta(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(271), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(286), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((
 
@@ -530,19 +564,19 @@ void test_ultima_lectura_correcta_incorrecta(void){
 
    ((void *)0)
 
-   ), (UNITY_UINT)(272), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(287), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((humedad_2)), (UNITY_INT)((medida_3.humedad)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(273), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(288), UNITY_DISPLAY_STYLE_INT) ;
 
     UnityAssertEqualNumber((UNITY_INT)((temperatura_2)), (UNITY_INT)((medida_3.temperatura)), (
 
    ((void *)0)
 
-   ), (UNITY_UINT)(274), UNITY_DISPLAY_STYLE_INT) ;
+   ), (UNITY_UINT)(289), UNITY_DISPLAY_STYLE_INT) ;
 
 
 

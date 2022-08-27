@@ -104,9 +104,9 @@ int main(void)
   run_test(test_cambiar_lectura_de_temperatura_humedad, "test_cambiar_lectura_de_temperatura_humedad", 114);
   run_test(test_dato_crc_incorrecto_mantener_valor, "test_dato_crc_incorrecto_mantener_valor", 154);
   run_test(test_transformar_temperatura_a_kelvin, "test_transformar_temperatura_a_kelvin", 192);
-  run_test(test_leer_temperatura_dht11, "test_leer_temperatura_dht11", 200);
-  run_test(test_leer_humedad_dht11, "test_leer_humedad_dht11", 220);
-  run_test(test_ultima_lectura_correcta_incorrecta, "test_ultima_lectura_correcta_incorrecta", 239);
+  run_test(test_leer_temperatura_dht11, "test_leer_temperatura_dht11", 215);
+  run_test(test_leer_humedad_dht11, "test_leer_humedad_dht11", 235);
+  run_test(test_ultima_lectura_correcta_incorrecta, "test_ultima_lectura_correcta_incorrecta", 254);
 
   CMock_Guts_MemFreeFinal();
   return UnityEnd();

@@ -58,3 +58,7 @@ float get_humidity(){
     return  data_sensor_dht11.humedad  ; 
   
 }
+
+float get_temperature_kelvin() { 
+    return ( data_sensor_dht11.temperatura + 273.15) ; 
+}

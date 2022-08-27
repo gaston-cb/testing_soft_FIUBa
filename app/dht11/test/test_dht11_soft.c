@@ -190,9 +190,22 @@ void test_dato_crc_incorrecto_mantener_valor(void){
 
 /// * 6) Transformar temperatura a kelvin 
 void test_transformar_temperatura_a_kelvin(void){ 
-
-
-
+    float temperatura = 22.22 ; 
+    float temp_kelvin = temperatura + 273.15 ; ///! form_conv: T(°C) + 273.15 = T[K]  
+    float temp_kelvin_dht_transform ; 
+    float humedad = 22.22 ; 
+    uint8_t data_sensor_simulate[5] ; /// temperatura: 22.22°c , humedad : 22.22 %(VER DATASHEET) 
+    data_sensor_simulate[0] = 22 ; 
+    data_sensor_simulate[1] = 22 ; 
+    data_sensor_simulate[2] = 22 ; 
+    data_sensor_simulate[3] = 22 ; 
+    data_sensor_simulate[4] = ( data_sensor_simulate[0] + data_sensor_simulate[1] 
+                                + data_sensor_simulate[2] + data_sensor_simulate[3]) ; 
+    read_buffer_dht11_ExpectAnyArgs() ; 
+    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    read_dht11()   ;  ///! se comunica con la capa de hardware -- uso de mocks 
+    temp_kelvin_dht_transform = get_temperature_kelvin() ; 
+    TEST_ASSERT_EQUAL(temp_kelvin, temp_kelvin_dht_transform)  ; 
 }
 
 

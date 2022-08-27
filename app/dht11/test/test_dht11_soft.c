@@ -1,6 +1,7 @@
 #include "unity.h" 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h> ///! numeros aleatorios 
 //#include "mock_sio.h"
 
 #include "mock_gpio.h"
@@ -51,14 +52,28 @@
 /// 
 
 
-//#define 
+void input_buffer_test(uint8_t *buffer,uint8_t pos0,uint8_t pos1,uint8_t pos2,uint8_t pos3,bool crc){ 
+    buffer[0] = pos0 ; 
+    buffer[0] = pos0 ; 
+    buffer[0] = pos0 ; 
+    buffer[0] = pos0 ; 
+    if (crc == true){ 
+        buffer[4] = buffer[0]+buffer[1]+buffer[2]+buffer[3]; 
+    }else buffer[4] =(uint8_t ) (rand()%255) ; 
+}
+
+void setUp(void) { 
+    gpio_init_Ignore() ; 
+    //read_buffer_dht11_ExpectAnyArgs() ; 
+
+    //read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+
+} 
+
 extern uint8_t pin_number_dht_11;
 
 void test_seleccion_de_gpio_biblioteca_dht11(void) {
-    //gpio_init_Expect(8) ; 
-    //gpio_set_dir_Ignore() ; 
-    gpio_init_Ignore() ; 
-    //gpio_set_inover_ExpectAnyArgs() ; 
+    // gpio_init_Ignore() ; 
 
     init_dht11(8) ; 
     TEST_ASSERT_EQUAL(8,GPIO_PORT_PIN_TEST_1) ; 
@@ -69,15 +84,19 @@ void test_seleccion_de_gpio_biblioteca_dht11(void) {
  *      void read_buffer_dht11(port, uint8_t buffer* )(en desarrollo) 
  *     y leer los bytes de devolución de esta biblioteca de hardware 
  */
+void funcion_test_paramocs(uint8_t *buffer) { 
+    read_buffer_dht11_ExpectAnyArgs() ;
+    read_buffer_dht11_ReturnMemThruPtr_buffer(buffer, 5) ; 
+    
+}
+
+
  void test_data_sensor_rx_buffer(void) { 
     uint8_t data_get_sensor_dht11[5] ; ///respuesta del sensor copiada desde el mock de return 
-    uint8_t data_sensor_simulate[5] ={ 
-        BYTE_0_TEST_2, BYTE_1_TEST_2,
-        BYTE_2_TEST_2, BYTE_3_TEST_2,
-        BYTE_4_TEST_2} ; 
-    gpio_init_Ignore() ; 
-    read_buffer_dht11_ExpectAnyArgs() ; 
-    read_buffer_dht11_ReturnMemThruPtr_buffer(data_sensor_simulate, 5) ; 
+    uint8_t data_sensor_simulate[5] ; 
+    input_buffer_test(data_sensor_simulate, BYTE_0_TEST_2,
+                        BYTE_1_TEST_2,BYTE_2_TEST_2,BYTE_3_TEST_2,true ) ; 
+    funcion_test_paramocs(data_sensor_simulate ) ; 
     init_dht11(8) ;     
     read_dht11()   ; 
     get_buffer_rx(data_get_sensor_dht11) ;
